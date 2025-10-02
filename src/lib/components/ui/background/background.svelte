@@ -10,7 +10,6 @@
 		mouseRadius: 70,
 		starColor: '#fff',
 		connectionColor: 'rgba(255, 255, 255, ${opacity})',
-		canvasBackgroundColor: 'oklch(0.129 0.042 264.695)',
 		lineThickness: 1,
 		starShapes: ['circle', 'star'],
 		randomStarSpeeds: true,

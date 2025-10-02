@@ -8,7 +8,9 @@
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 </script>
 
-<nav class="flex justify-end p-4">
+<nav
+	class="sticky top-0 z-50 flex justify-end border-b border-white/20 bg-white/60 p-2 shadow-sm backdrop-blur-[2px] dark:border-black/30 dark:bg-black/40"
+>
 	<NavigationMenu.Root>
 		<NavigationMenu.List>
 			<NavigationMenu.Item>
