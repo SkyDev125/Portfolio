@@ -116,13 +116,14 @@
 
 	function createStars() {
 		resizeCanvas();
+		const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 		const numberOfStars =
 			starDensities[options.starDensity as keyof typeof starDensities] *
 			canvasStars.width *
-			canvasStars.height;
+			pageHeight;
 		for (let i = 0; i < numberOfStars; i++) {
 			let x = Math.random() * canvasStars.width;
-			let y = Math.random() * canvasStars.height;
+			let y = Math.random() * pageHeight;
 			let star = new Star(x, y);
 			stars.push(star);
 			let cellX = Math.floor(x / CELL_SIZE);
@@ -141,6 +142,10 @@
 		ctxStars.clearRect(0, 0, canvasStars.width, canvasStars.height);
 		cells = {};
 
+		const scrollY = window.scrollY;
+		const viewportTop = scrollY;
+		const viewportBottom = scrollY + window.innerHeight;
+
 		stars.forEach((star) => {
 			star.x += star.speedX;
 			star.y += star.speedY;
@@ -149,10 +154,22 @@
 			if (star.x > canvasStars.width || star.x < 0) {
 				star.speedX = -star.speedX;
 			}
-			if (star.y > canvasStars.height || star.y < 0) {
+			if (
+				star.y > Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) ||
+				star.y < 0
+			) {
 				star.speedY = -star.speedY;
 			}
-			star.draw();
+			// Only draw stars in the viewport
+			if (star.y >= viewportTop && star.y <= viewportBottom) {
+				const drawY = star.y - scrollY;
+				ctxStars.save();
+				const prevY = star.y;
+				star.y = drawY;
+				star.draw();
+				star.y = prevY;
+				ctxStars.restore();
+			}
 
 			let cellX = Math.floor(star.x / CELL_SIZE);
 			let cellY = Math.floor(star.y / CELL_SIZE);
@@ -164,6 +181,9 @@
 			}
 			cells[cellX][cellY].push(star);
 
+			// Adjust mouse.y for scroll
+			const mouseYWithScroll = mouse.y !== null ? mouse.y + scrollY : null;
+
 			for (let i = -1; i <= 1; i++) {
 				for (let j = -1; j <= 1; j++) {
 					let neighbourCellX = cellX + i;
@@ -174,15 +194,23 @@
 							let dy = star.y - otherStar.y;
 							let distance = Math.sqrt(dx * dx + dy * dy);
 							let mouseDx = star.x - (mouse.x || 0);
-							let mouseDy = star.y - (mouse.y || 0);
+							let mouseDy = star.y - (mouseYWithScroll || 0);
 							let mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
+							// Only draw lines if both stars are in viewport
 							if (
 								distance < options.maxDistance &&
-								(mouseDistance < options.mouseRadius || (star.connects && otherStar.connects))
+								(mouseDistance < options.mouseRadius || (star.connects && otherStar.connects)) &&
+								star.y >= viewportTop &&
+								star.y <= viewportBottom &&
+								otherStar.y >= viewportTop &&
+								otherStar.y <= viewportBottom
 							) {
+								const drawY1 = star.y - scrollY;
+								const drawY2 = otherStar.y - scrollY;
+								ctxStars.save();
 								ctxStars.beginPath();
-								ctxStars.moveTo(star.x, star.y);
-								ctxStars.lineTo(otherStar.x, otherStar.y);
+								ctxStars.moveTo(star.x, drawY1);
+								ctxStars.lineTo(otherStar.x, drawY2);
 								const opacity = (options.maxDistance - distance) / options.maxDistance;
 								ctxStars.strokeStyle = options.connectionColor.replace(
 									'${opacity}',
@@ -195,6 +223,7 @@
 									ctxStars.setLineDash([]);
 								}
 								ctxStars.stroke();
+								ctxStars.restore();
 							}
 						});
 					}
@@ -228,13 +257,30 @@
 
 		const handleClick = (event: MouseEvent) => {
 			if (!options.interactive) return;
-			const star = new Star(event.clientX, event.clientY);
+			const star = new Star(event.clientX, event.clientY + window.scrollY);
 			stars.push(star);
 		};
 
 		window.addEventListener('mousemove', handleMouseMove);
 		window.addEventListener('resize', handleResize);
 		window.addEventListener('click', handleClick);
+
+		// Only reset when scroll height actually changes
+		let lastScrollHeight = Math.max(
+			document.body.scrollHeight,
+			document.documentElement.scrollHeight
+		);
+		const observer = new MutationObserver(() => {
+			const currentScrollHeight = Math.max(
+				document.body.scrollHeight,
+				document.documentElement.scrollHeight
+			);
+			if (currentScrollHeight !== lastScrollHeight) {
+				lastScrollHeight = currentScrollHeight;
+				handleResize();
+			}
+		});
+		observer.observe(document.body, { childList: true, subtree: true });
 
 		createStars();
 		animateStars();
@@ -243,6 +289,7 @@
 			window.removeEventListener('mousemove', handleMouseMove);
 			window.removeEventListener('resize', handleResize);
 			window.removeEventListener('click', handleClick);
+			observer.disconnect();
 			if (animationIdleTimeout) clearTimeout(animationIdleTimeout);
 		};
 	});
