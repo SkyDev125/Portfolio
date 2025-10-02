@@ -3,6 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { ModeWatcher } from 'mode-watcher';
 	import Navbar from '$lib/components/ui/navbar/navbar.svelte';
+	import StarfieldBackground from '$lib/components/ui/background/background.svelte';
 
 	let { children } = $props();
 </script>
@@ -10,6 +11,9 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
+
+<!-- Animated Background -->
+<StarfieldBackground />
 
 <!-- Mode Watcher to handle theme changes -->
 <ModeWatcher />
