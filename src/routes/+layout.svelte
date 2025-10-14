@@ -4,10 +4,10 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import Navbar from '$lib/components/ui/navbar/navbar.svelte';
 	import StarfieldBackground from '$lib/components/ui/background/background.svelte';
+	import Footer from '$lib/components/ui/footer/footer.svelte';
 
 	let { children } = $props();
 </script>
-
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
@@ -24,3 +24,6 @@
 
 <!-- Main Content -->
 {@render children?.()}
+
+<!--- Footer -->
+<Footer />
