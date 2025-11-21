@@ -36,6 +36,7 @@
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"svelte-sonner": "^1.0.5",
 		"tailwind-merge": "^3.3.1",
 		"tailwind-variants": "^3.1.1",
 		"tailwindcss": "^4.0.0",
@@ -45,7 +46,9 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-free": "^7.1.0",
 		"mode-watcher": "^1.1.0",
-		"starback": "^2.1.6"
+		"starback": "^2.1.6",
+		"svelte-copy": "^2.0.0"
 	}
 }

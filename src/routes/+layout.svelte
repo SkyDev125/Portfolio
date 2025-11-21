@@ -19,11 +19,20 @@
 <!-- Mode Watcher to handle theme changes -->
 <ModeWatcher />
 
-<!-- Navigation Menu -->
-<Navbar />
+<!-- Layout -->
+<div class="flex min-h-screen flex-col">
+	<!-- Navigation Menu -->
+	<header>
+		<Navbar />
+	</header>
 
-<!-- Main Content -->
-{@render children?.()}
+	<!-- Main Content grows to fill available space -->
+	<main class="flex-1">
+		{@render children?.()}
+	</main>
 
-<!--- Footer -->
-<Footer />
+	<!-- Footer stays at the bottom -->
+	<footer class="mt-auto">
+		<Footer />
+	</footer>
+</div>

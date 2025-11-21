@@ -6,6 +6,7 @@
 	import { resetMode, setMode } from 'mode-watcher';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
+	import { resolve } from '$app/paths';
 </script>
 
 <nav
@@ -16,35 +17,35 @@
 			<NavigationMenu.Item>
 				<NavigationMenu.Link>
 					{#snippet child()}
-						<a href="/" class={navigationMenuTriggerStyle()}>Home</a>
+						<a href={resolve('/')} class={navigationMenuTriggerStyle()}>Home</a>
 					{/snippet}
 				</NavigationMenu.Link>
 			</NavigationMenu.Item>
 			<NavigationMenu.Item>
 				<NavigationMenu.Link>
 					{#snippet child()}
-						<a href="/about" class={navigationMenuTriggerStyle()}>About</a>
+						<a href={resolve('/about')} class={navigationMenuTriggerStyle()}>About</a>
 					{/snippet}
 				</NavigationMenu.Link>
 			</NavigationMenu.Item>
 			<NavigationMenu.Item>
 				<NavigationMenu.Link>
 					{#snippet child()}
-						<a href="/projects" class={navigationMenuTriggerStyle()}>Projects</a>
+						<a href={resolve('/projects')} class={navigationMenuTriggerStyle()}>Projects</a>
 					{/snippet}
 				</NavigationMenu.Link>
 			</NavigationMenu.Item>
 			<NavigationMenu.Item>
 				<NavigationMenu.Link>
 					{#snippet child()}
-						<a href="/contact" class={navigationMenuTriggerStyle()}>Contact</a>
+						<a href={resolve('/contact')} class={navigationMenuTriggerStyle()}>Contact</a>
 					{/snippet}
 				</NavigationMenu.Link>
 			</NavigationMenu.Item>
 			<NavigationMenu.Item>
 				<NavigationMenu.Link>
 					{#snippet child()}
-						<a href="/skills" class={navigationMenuTriggerStyle()}>Skills</a>
+						<a href={resolve('/skills')} class={navigationMenuTriggerStyle()}>Skills</a>
 					{/snippet}
 				</NavigationMenu.Link>
 			</NavigationMenu.Item>
@@ -52,10 +53,10 @@
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger class={buttonVariants({ variant: 'outline', size: 'icon' })}>
 						<SunIcon
-							class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
+							class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! duration-200 dark:scale-0 dark:-rotate-90"
 						/>
 						<MoonIcon
-							class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
+							class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all! duration-200 dark:scale-100 dark:rotate-0"
 						/>
 						<span class="sr-only">Toggle theme</span>
 					</DropdownMenu.Trigger>
