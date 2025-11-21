@@ -5,6 +5,7 @@
 	import Navbar from '$lib/components/ui/navbar/navbar.svelte';
 	import StarfieldBackground from '$lib/components/ui/background/background.svelte';
 	import Footer from '$lib/components/ui/footer/footer.svelte';
+	import { Toaster } from 'svelte-sonner';
 
 	let { children } = $props();
 </script>
@@ -36,3 +37,5 @@
 		<Footer />
 	</footer>
 </div>
+
+<Toaster />
