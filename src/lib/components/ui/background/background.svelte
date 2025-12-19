@@ -32,21 +32,6 @@
 		ultra: 0.0004
 	};
 
-	// Fixed height for consistent star field across all pages
-	const FIXED_STAR_FIELD_HEIGHT = 15000;
-
-	// Seeded random number generator for consistent star placement
-	function seededRandom(seed: number) {
-		return function () {
-			seed = (seed * 9301 + 49297) % 233280;
-			return seed / 233280;
-		};
-	}
-
-	// Global seed for consistent constellation
-	const CONSTELLATION_SEED = 12345;
-	let random = seededRandom(CONSTELLATION_SEED);
-
 	const CELL_SIZE = options.maxDistance;
 	let cells: Record<number, Record<number, any[]>> = {};
 	let canvasBackground: HTMLCanvasElement;
@@ -71,23 +56,23 @@
 		originalX: number;
 		originalY: number;
 
-		constructor(x: number, y: number, useSeededRandom = true) {
+		constructor(x: number, y: number) {
 			this.x = x;
 			this.y = y;
-			const rand = useSeededRandom ? random : Math.random;
-			this.size = rand() * (options.starSize.max - options.starSize.min) + options.starSize.min;
-			this.shape = options.starShapes[Math.floor(rand() * options.starShapes.length)];
-			this.speedX = (rand() - 0.5) * (options.randomStarSpeeds ? options.speedFactor : 1);
-			this.speedY = (rand() - 0.5) * (options.randomStarSpeeds ? options.speedFactor : 1);
+			this.size =
+				Math.random() * (options.starSize.max - options.starSize.min) + options.starSize.min;
+			this.shape = options.starShapes[Math.floor(Math.random() * options.starShapes.length)];
+			this.speedX = (Math.random() - 0.5) * (options.randomStarSpeeds ? options.speedFactor : 1);
+			this.speedY = (Math.random() - 0.5) * (options.randomStarSpeeds ? options.speedFactor : 1);
 			this.rotation = 0;
 			this.rotationSpeed =
-				rand() * (options.rotationSpeed.max - options.rotationSpeed.min) +
+				Math.random() * (options.rotationSpeed.max - options.rotationSpeed.min) +
 				options.rotationSpeed.min;
 			this.connects =
 				options.percentStarsConnecting === 100
 					? true
-					: options.connectionsWhenNoMouse && rand() < options.percentStarsConnecting / 100;
-			this.depth = rand();
+					: options.connectionsWhenNoMouse && Math.random() < options.percentStarsConnecting / 100;
+			this.depth = Math.random();
 			this.originalX = x;
 			this.originalY = y;
 			this.size *= this.depth;
@@ -131,17 +116,15 @@
 
 	function createStars() {
 		resizeCanvas();
-		// Reset the seeded random generator for consistent placement
-		random = seededRandom(CONSTELLATION_SEED);
-		// Use fixed height for consistent star field across all pages
+		const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 		const numberOfStars =
 			starDensities[options.starDensity as keyof typeof starDensities] *
 			canvasStars.width *
-			FIXED_STAR_FIELD_HEIGHT;
+			pageHeight;
 		for (let i = 0; i < numberOfStars; i++) {
-			let x = random() * canvasStars.width;
-			let y = random() * FIXED_STAR_FIELD_HEIGHT;
-			let star = new Star(x, y, true);
+			let x = Math.random() * canvasStars.width;
+			let y = Math.random() * pageHeight;
+			let star = new Star(x, y);
 			stars.push(star);
 			let cellX = Math.floor(x / CELL_SIZE);
 			let cellY = Math.floor(y / CELL_SIZE);
@@ -171,7 +154,10 @@
 			if (star.x > canvasStars.width || star.x < 0) {
 				star.speedX = -star.speedX;
 			}
-			if (star.y > FIXED_STAR_FIELD_HEIGHT || star.y < 0) {
+			if (
+				star.y > Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) ||
+				star.y < 0
+			) {
 				star.speedY = -star.speedY;
 			}
 			// Only draw stars in the viewport
@@ -271,14 +257,30 @@
 
 		const handleClick = (event: MouseEvent) => {
 			if (!options.interactive) return;
-			// Interactive stars use Math.random for variety
-			const star = new Star(event.clientX, event.clientY + window.scrollY, false);
+			const star = new Star(event.clientX, event.clientY + window.scrollY);
 			stars.push(star);
 		};
 
 		window.addEventListener('mousemove', handleMouseMove);
 		window.addEventListener('resize', handleResize);
 		window.addEventListener('click', handleClick);
+
+		// Only reset when scroll height actually changes
+		let lastScrollHeight = Math.max(
+			document.body.scrollHeight,
+			document.documentElement.scrollHeight
+		);
+		const observer = new MutationObserver(() => {
+			const currentScrollHeight = Math.max(
+				document.body.scrollHeight,
+				document.documentElement.scrollHeight
+			);
+			if (currentScrollHeight !== lastScrollHeight) {
+				lastScrollHeight = currentScrollHeight;
+				handleResize();
+			}
+		});
+		observer.observe(document.body, { childList: true, subtree: true });
 
 		createStars();
 		animateStars();
@@ -287,6 +289,7 @@
 			window.removeEventListener('mousemove', handleMouseMove);
 			window.removeEventListener('resize', handleResize);
 			window.removeEventListener('click', handleClick);
+			observer.disconnect();
 			if (animationIdleTimeout) clearTimeout(animationIdleTimeout);
 		};
 	});
