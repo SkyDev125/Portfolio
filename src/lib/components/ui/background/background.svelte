@@ -32,6 +32,11 @@
 		ultra: 0.0004
 	};
 
+	// Fixed virtual height to ensure consistent star field across all pages
+	// This prevents re-generation when navigating between pages of different heights
+	// 15000px should cover virtually any realistic page height
+	const VIRTUAL_HEIGHT = 15000;
+
 	const CELL_SIZE = options.maxDistance;
 	let cells: Record<number, Record<number, any[]>> = {};
 	let canvasBackground: HTMLCanvasElement;
@@ -41,6 +46,7 @@
 	let stars: any[] = [];
 	let mouse = { x: null as number | null, y: null as number | null };
 	let animationIdleTimeout: number | null = null;
+	let initialized = false;
 
 	class Star {
 		x: number;
@@ -116,14 +122,14 @@
 
 	function createStars() {
 		resizeCanvas();
-		const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+		// Use fixed virtual height instead of actual page height for consistent star field
 		const numberOfStars =
 			starDensities[options.starDensity as keyof typeof starDensities] *
 			canvasStars.width *
-			pageHeight;
+			VIRTUAL_HEIGHT;
 		for (let i = 0; i < numberOfStars; i++) {
 			let x = Math.random() * canvasStars.width;
-			let y = Math.random() * pageHeight;
+			let y = Math.random() * VIRTUAL_HEIGHT;
 			let star = new Star(x, y);
 			stars.push(star);
 			let cellX = Math.floor(x / CELL_SIZE);
@@ -136,6 +142,7 @@
 			}
 			cells[cellX][cellY].push(star);
 		}
+		initialized = true;
 	}
 
 	function animateStars() {
@@ -154,10 +161,7 @@
 			if (star.x > canvasStars.width || star.x < 0) {
 				star.speedX = -star.speedX;
 			}
-			if (
-				star.y > Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) ||
-				star.y < 0
-			) {
+			if (star.y > VIRTUAL_HEIGHT || star.y < 0) {
 				star.speedY = -star.speedY;
 			}
 			// Only draw stars in the viewport
@@ -249,10 +253,16 @@
 		};
 
 		const handleResize = () => {
-			stars.length = 0;
-			cells = {};
-			resizeCanvas();
-			createStars();
+			// Only recreate stars if width changed (height changes don't matter with fixed virtual height)
+			const newWidth = window.innerWidth;
+			if (!initialized || newWidth !== canvasStars.width) {
+				stars.length = 0;
+				cells = {};
+				resizeCanvas();
+				createStars();
+			} else {
+				resizeCanvas();
+			}
 		};
 
 		const handleClick = (event: MouseEvent) => {
@@ -265,23 +275,7 @@
 		window.addEventListener('resize', handleResize);
 		window.addEventListener('click', handleClick);
 
-		// Only reset when scroll height actually changes
-		let lastScrollHeight = Math.max(
-			document.body.scrollHeight,
-			document.documentElement.scrollHeight
-		);
-		const observer = new MutationObserver(() => {
-			const currentScrollHeight = Math.max(
-				document.body.scrollHeight,
-				document.documentElement.scrollHeight
-			);
-			if (currentScrollHeight !== lastScrollHeight) {
-				lastScrollHeight = currentScrollHeight;
-				handleResize();
-			}
-		});
-		observer.observe(document.body, { childList: true, subtree: true });
-
+		// No longer need to observe scroll height changes since we use fixed virtual height
 		createStars();
 		animateStars();
 
@@ -289,7 +283,6 @@
 			window.removeEventListener('mousemove', handleMouseMove);
 			window.removeEventListener('resize', handleResize);
 			window.removeEventListener('click', handleClick);
-			observer.disconnect();
 			if (animationIdleTimeout) clearTimeout(animationIdleTimeout);
 		};
 	});
