@@ -3,7 +3,6 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
 	import '@fortawesome/fontawesome-free/css/all.min.css';
 
 	type Repo = {
@@ -193,56 +192,61 @@
 	<section class="mb-8">
 		<Card.Root class="border-border/50 bg-card/50 backdrop-blur-sm">
 			<Card.Content>
-				<div class="flex flex-wrap items-center justify-between gap-4">
-					<div class="flex flex-wrap items-center gap-3">
-						<div
-							class="flex items-center gap-2 rounded-full border border-chart-1/30 bg-chart-1/10 px-4 py-2"
-						>
-							<i class="fa-solid fa-folder text-chart-1"></i>
-							<span class="font-semibold">{isLoading ? '...' : allSummary().total}</span>
-							<span class="text-muted-foreground">projects</span>
-						</div>
-						<div
-							class="flex items-center gap-2 rounded-full border border-chart-2/30 bg-chart-2/10 px-4 py-2"
-						>
-							<i class="fa-solid fa-star text-chart-2"></i>
-							<span class="font-semibold">{isLoading ? '...' : allSummary().stars}</span>
-							<span class="text-muted-foreground">stars</span>
-						</div>
-						<div
-							class="flex items-center gap-2 rounded-full border border-chart-3/30 bg-chart-3/10 px-4 py-2"
-						>
-							<i class="fa-solid fa-code-fork text-chart-3"></i>
-							<span class="font-semibold">{isLoading ? '...' : allSummary().forks}</span>
-							<span class="text-muted-foreground">forks</span>
-						</div>
-						{#if totalCommits !== null}
+				<div class="flex flex-col gap-4">
+					<!-- Stats and Button Row -->
+					<div class="flex flex-wrap items-center justify-between gap-3">
+						<!-- Stats Grid/Flex -->
+						<div class="grid flex-1 grid-cols-2 gap-2 sm:flex sm:flex-1 sm:flex-wrap sm:gap-3">
 							<div
-								class="flex items-center gap-2 rounded-full border border-chart-4/30 bg-chart-4/10 px-4 py-2"
+								class="flex items-center gap-2 rounded-lg border border-chart-1/30 bg-chart-1/10 px-3 py-2 text-sm sm:rounded-full sm:px-4 sm:text-base"
 							>
-								<i class="fa-solid fa-code-commit text-chart-4"></i>
-								<span class="font-semibold">{totalCommits.toLocaleString()}</span>
-								<span class="text-muted-foreground">commits</span>
+								<i class="fa-solid fa-folder text-chart-1"></i>
+								<span class="font-semibold">{isLoading ? '...' : allSummary().total}</span>
+								<span class="text-muted-foreground">projects</span>
 							</div>
-						{/if}
-						{#if error}
 							<div
-								class="flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-amber-500"
+								class="flex items-center gap-2 rounded-lg border border-chart-2/30 bg-chart-2/10 px-3 py-2 text-sm sm:rounded-full sm:px-4 sm:text-base"
 							>
-								<i class="fa-solid fa-triangle-exclamation"></i>
-								<span class="text-sm">API: {error}</span>
+								<i class="fa-solid fa-star text-chart-2"></i>
+								<span class="font-semibold">{isLoading ? '...' : allSummary().stars}</span>
+								<span class="text-muted-foreground">stars</span>
 							</div>
-						{/if}
+							<div
+								class="flex items-center gap-2 rounded-lg border border-chart-3/30 bg-chart-3/10 px-3 py-2 text-sm sm:rounded-full sm:px-4 sm:text-base"
+							>
+								<i class="fa-solid fa-code-fork text-chart-3"></i>
+								<span class="font-semibold">{isLoading ? '...' : allSummary().forks}</span>
+								<span class="text-muted-foreground">forks</span>
+							</div>
+							{#if totalCommits !== null}
+								<div
+									class="flex items-center gap-2 rounded-lg border border-chart-4/30 bg-chart-4/10 px-3 py-2 text-sm sm:rounded-full sm:px-4 sm:text-base"
+								>
+									<i class="fa-solid fa-code-commit text-chart-4"></i>
+									<span class="font-semibold">{totalCommits.toLocaleString()}</span>
+									<span class="text-muted-foreground">commits</span>
+								</div>
+							{/if}
+						</div>
+						<!-- GitHub Button -->
+						<Button
+							href={`https://github.com/${GITHUB_USERNAME}`}
+							target="_blank"
+							rel="noreferrer"
+							class="w-full gap-2 sm:w-auto"
+						>
+							<i class="fa-brands fa-github"></i>
+							View GitHub Profile
+						</Button>
 					</div>
-					<Button
-						href={`https://github.com/${GITHUB_USERNAME}`}
-						target="_blank"
-						rel="noreferrer"
-						class="gap-2"
-					>
-						<i class="fa-brands fa-github"></i>
-						View GitHub Profile
-					</Button>
+					{#if error}
+						<div
+							class="flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-amber-500"
+						>
+							<i class="fa-solid fa-triangle-exclamation"></i>
+							<span class="text-sm">API: {error}</span>
+						</div>
+					{/if}
 				</div>
 			</Card.Content>
 		</Card.Root>
@@ -407,7 +411,7 @@
 							? 'ring-1 ring-chart-2/30'
 							: ''}"
 					>
-						<Card.Header class="pb-3">
+						<Card.Header class="">
 							<div class="flex items-start justify-between gap-2">
 								<div class="flex items-center gap-2">
 									<span class="h-3 w-3 rounded-full {getLanguageColor(repo.language)}"></span>
