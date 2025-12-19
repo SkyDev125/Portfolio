@@ -16,10 +16,10 @@
 		},
 		{
 			year: '2024 - Present',
-			title: 'Student Mentor & Percussion Lead',
+			title: 'Student Mentor & Percussion Lead / Soloist',
 			org: 'IST / TMIST',
 			description:
-				'Guiding incoming students through the NAPE Mentoring Program. Leading the percussion section at TMIST, dedicating 400+ hours annually to rehearsals, performances, and festivals.',
+				'Guiding incoming students through the NAPE Mentoring Program. Soloing and Leading the percussion section at TMIST, dedicating 400+ hours annually to rehearsals, performances, and festivals.',
 			icon: 'fa-users'
 		},
 		{
@@ -134,7 +134,7 @@
 				</p>
 				<p>
 					At Escola Profissional Val do Rio, I developed a deep understanding of computing's
-					physical layer — from hardware integration to robot development. I graduated with the <strong
+					physical layer, from hardware integration to robot development. I graduated with the <strong
 						class="text-foreground">highest average in the school</strong
 					>
 					and perfect scores on my capstone project and Erasmus+ internship in Turin, where I overhauled
@@ -146,8 +146,8 @@
 					<strong class="text-foreground">architecting new solutions from the ground up</strong>. So
 					while working as Lab Manager by day, I self-studied mathematics in the evenings to enroll
 					at
-					<strong class="text-foreground">Instituto Superior Técnico</strong> — Portugal's most prestigious
-					engineering university.
+					<strong class="text-foreground">Instituto Superior Técnico</strong>, Portugal's most
+					prestigious engineering university.
 				</p>
 				<p>
 					At IST, I earned the <strong class="text-foreground">Diploma of Academic Merit</strong>
@@ -323,21 +323,30 @@
 	</section>
 
 	<!-- Get In Contact Section -->
-	<section>
-		<Card.Root class="border-border/50 bg-card/50 p-8 text-center backdrop-blur-sm">
-			<h2 class="mb-4 text-2xl font-bold">Let's Connect</h2>
-			<p class="mx-auto mb-6 max-w-lg text-muted-foreground">
+	<section class="mb-8">
+		<Card.Root class="border-border/50 bg-card/50 p-8 text-center backdrop-blur-sm md:p-12">
+			<h2 class="mb-4 text-3xl font-bold">Let's Build Something Together</h2>
+			<p class="mx-auto mb-8 max-w-xl text-muted-foreground">
 				Whether you want to discuss research, collaborate on a project, or just chat about robots,
-				AI and IT, I'd love to hear from you.
+				AI and IT, I'd love to hear from you!
 			</p>
 			<div class="flex flex-wrap justify-center gap-4">
-				<Button href={resolve('/contact')} class="gap-2">
+				<Button href={resolve('/contact')} size="lg" class="gap-2">
 					<i class="fa-solid fa-envelope"></i>
-					Get In Touch
+					Start a Conversation
 				</Button>
-				<Button href={resolve('/projects')} variant="outline" class="gap-2">
-					<i class="fa-solid fa-folder-open"></i>
-					View My Projects
+				<Button href="https://github.com/SkyDev125" variant="outline" size="lg" class="gap-2">
+					<i class="fa-brands fa-github"></i>
+					View GitHub
+				</Button>
+				<Button
+					href="https://www.linkedin.com/in/diogo-sky/"
+					variant="outline"
+					size="lg"
+					class="gap-2"
+				>
+					<i class="fa-brands fa-linkedin"></i>
+					Connect on LinkedIn
 				</Button>
 			</div>
 		</Card.Root>

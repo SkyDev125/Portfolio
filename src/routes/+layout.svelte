@@ -21,7 +21,7 @@
 <ModeWatcher />
 
 <!-- Layout -->
-<div class="flex min-h-screen flex-col">
+<div class="relative z-0 flex min-h-screen flex-col">
 	<!-- Navigation Menu -->
 	<header>
 		<Navbar />

@@ -179,7 +179,7 @@
 	<!-- Hero Section -->
 	<section class="mb-12 text-center">
 		<h1
-			class="mb-4 bg-gradient-to-r from-primary via-chart-1 to-chart-2 bg-clip-text pb-1 text-4xl font-bold tracking-tight text-transparent sm:text-5xl"
+			class="mb-4 bg-gradient-to-r from-primary via-chart-1 to-chart-2 bg-clip-text pb-2 text-4xl font-bold tracking-tight text-transparent sm:text-5xl"
 		>
 			My Projects
 		</h1>

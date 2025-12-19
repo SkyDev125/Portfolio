@@ -9,9 +9,7 @@
 		name: 'Diogo Santos',
 		nickname: 'Sky',
 		title: 'CS Student & Research Assistant',
-		tagline: 'Trying my best to make this world slightly a better place ✨',
-		description:
-			'Top 1.8% CS&E student at IST Portugal. Currently researching Social Robotics at GAIPS (INESC-ID), working on SLAM, autonomous navigation, and human-robot interaction for the Horizon Europe CARMA project.'
+		tagline: 'Trying my best to make this world slightly a better place ✨'
 	};
 
 	const featuredProjects = [
@@ -26,7 +24,7 @@
 		{
 			title: 'Voice at Night',
 			description:
-				'Whisper-to-speech system using OpenAI models — converts whispers to text, then synthesizes speech in a chosen voice for late-night communication.',
+				'Whisper-to-text-to-speech system using OpenAI models. Converts whispers to text, then synthesizes speech in a chosen voice for late-night communication.',
 			tags: ['Python', 'OpenAI', 'Speech AI'],
 			link: 'https://github.com/SkyDev125/Voice_at_Night',
 			icon: 'fa-microphone'
@@ -50,13 +48,12 @@
 		{
 			icon: 'fa-code',
 			title: 'Systems Programming',
-			description:
-				'Python & C/C++ (Advanced) — from embedded systems to high-performance applications'
+			description: 'Python & C/C++, from embedded systems to high-performance applications'
 		},
 		{
 			icon: 'fa-mobile-alt',
 			title: 'Mobile & Web',
-			description: 'Flutter/Dart, Svelte, TypeScript — crafting cross-platform experiences'
+			description: 'Flutter/Dart, Svelte, TypeScript, crafting cross-platform experiences'
 		},
 		{
 			icon: 'fa-shield-halved',
@@ -75,7 +72,6 @@
 
 <svelte:head>
 	<title>SkyDev125 | Portfolio</title>
-	<meta name="description" content={heroData.description} />
 </svelte:head>
 
 <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
@@ -84,7 +80,7 @@
 		<!-- Status Badge -->
 		{#if currentStatus.available}
 			<div
-				class="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 text-sm text-green-600 dark:text-green-400"
+				class="mb-6 inline-flex items-center gap-2 rounded-full border border-green-400/50 bg-green-500/20 px-4 py-2 text-sm font-medium text-green-900 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-400"
 			>
 				<span class="relative flex h-2 w-2">
 					<span
@@ -101,7 +97,7 @@
 			{heroData.greeting}
 		</h1>
 		<h2
-			class="mb-2 bg-gradient-to-r from-primary via-chart-1 to-chart-2 bg-clip-text pb-3 text-5xl font-bold tracking-tight text-transparent sm:text-6xl md:text-7xl"
+			class="mb-2 bg-gradient-to-r from-blue-700 to-orange-500 bg-clip-text pb-3 text-5xl font-bold tracking-tight text-transparent sm:text-6xl md:text-7xl dark:to-green-500"
 		>
 			{heroData.name}
 		</h2>
@@ -113,13 +109,8 @@
 		</h3>
 
 		<!-- Tagline -->
-		<p class="mb-4 max-w-2xl text-xl text-muted-foreground sm:text-2xl">
+		<p class="mb-10 max-w-2xl text-xl text-muted-foreground sm:text-2xl">
 			{heroData.tagline}
-		</p>
-
-		<!-- Description -->
-		<p class="mb-10 max-w-xl text-base text-muted-foreground/80">
-			{heroData.description}
 		</p>
 
 		<!-- CTA Buttons -->
@@ -145,7 +136,7 @@
 		<div class="mb-10 text-center">
 			<h2 class="mb-3 text-3xl font-bold sm:text-4xl">What I Do</h2>
 			<p class="mx-auto max-w-2xl text-muted-foreground">
-				From web apps to mobile, from systems programming to Discord bots — I love building things
+				From web apps to mobile, from systems programming to AI and robotics, I love building things
 				that solve real problems
 			</p>
 		</div>
@@ -176,7 +167,7 @@
 		<div class="mb-10 text-center">
 			<h2 class="mb-3 text-3xl font-bold sm:text-4xl">Featured Projects</h2>
 			<p class="mx-auto max-w-2xl text-muted-foreground">
-				A selection from my 37+ repositories — ranging from university projects to personal passion
+				A selection from my 36+ repositories, ranging from university projects to personal passion
 				projects
 			</p>
 		</div>
@@ -228,7 +219,7 @@
 	<!-- Current Focus / About Teaser -->
 	<section class="mb-20">
 		<Card.Root
-			class="overflow-hidden border-border/50 bg-gradient-to-br from-card/80 via-card/50 to-primary/5 backdrop-blur-sm"
+			class="overflow-hidden border-border/50 bg-gradient-to-br from-card/80 via-card/50 to-primary/5 p-0 backdrop-blur-sm"
 		>
 			<div class="grid gap-8 p-8 md:grid-cols-2 md:p-12">
 				<div>
@@ -240,16 +231,18 @@
 						<div class="flex items-center gap-3">
 							<i class="fa-solid fa-flask text-chart-1"></i>
 							<span class="text-muted-foreground"
-								>Research Assistant at GAIPS (INESC-ID) — Social Robotics</span
+								>Research Assistant at GAIPS (INESC-ID), Social Robotics</span
 							>
 						</div>
 						<div class="flex items-center gap-3">
 							<i class="fa-solid fa-trophy text-chart-2"></i>
-							<span class="text-muted-foreground">Top 1.8% at IST — Diploma of Academic Merit</span>
+							<span class="text-muted-foreground">Top 1.8% at IST, Diploma of Academic Merit</span>
 						</div>
 						<div class="flex items-center gap-3">
 							<i class="fa-solid fa-drum text-chart-3"></i>
-							<span class="text-muted-foreground">Percussion Section Coordinator at TMIST</span>
+							<span class="text-muted-foreground"
+								>Soloist & Percussion Section Coordinator at TMIST</span
+							>
 						</div>
 					</div>
 				</div>
@@ -276,8 +269,8 @@
 		<Card.Root class="border-border/50 bg-card/50 p-8 text-center backdrop-blur-sm md:p-12">
 			<h2 class="mb-4 text-3xl font-bold">Let's Build Something Together</h2>
 			<p class="mx-auto mb-8 max-w-xl text-muted-foreground">
-				Whether you have a project idea, want to collaborate on open source, or just want to chat
-				about tech, feel free to reach out!
+				Whether you want to discuss research, collaborate on a project, or just chat about robots,
+				AI and IT, I'd love to hear from you!
 			</p>
 			<div class="flex flex-wrap justify-center gap-4">
 				<Button href={resolve('/contact')} size="lg" class="gap-2">
