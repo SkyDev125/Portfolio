@@ -23,7 +23,7 @@
 			icon: 'fa-users'
 		},
 		{
-			year: '2023 - 2026',
+			year: '2023 - 2026 (expected)',
 			title: 'BSc Computer Science & Engineering',
 			org: 'Instituto Superior Técnico',
 			description:
