@@ -43,13 +43,6 @@
 				</NavigationMenu.Link>
 			</NavigationMenu.Item>
 			<NavigationMenu.Item>
-				<NavigationMenu.Link>
-					{#snippet child()}
-						<a href={resolve('/skills')} class={navigationMenuTriggerStyle()}>Skills</a>
-					{/snippet}
-				</NavigationMenu.Link>
-			</NavigationMenu.Item>
-			<NavigationMenu.Item>
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger class={buttonVariants({ variant: 'outline', size: 'icon' })}>
 						<SunIcon
