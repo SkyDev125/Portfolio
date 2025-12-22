@@ -83,7 +83,7 @@
 			{heroData.greeting}
 		</h1>
 		<h2
-			class="mb-2 bg-gradient-to-r from-blue-700 to-orange-500 bg-clip-text pb-3 text-5xl font-bold tracking-tight text-transparent sm:text-6xl md:text-7xl dark:to-green-500"
+			class="mb-2 bg-gradient-to-r from-blue-700 to-green-500 bg-clip-text pb-3 text-5xl font-bold tracking-tight text-transparent sm:text-6xl md:text-7xl"
 		>
 			{heroData.name}
 		</h2>
