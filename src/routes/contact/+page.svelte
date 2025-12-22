@@ -144,7 +144,7 @@
 		>
 			Get In Touch
 		</h1>
-		<p class="mx-auto max-w-2xl text-lg text-muted-foreground">
+		<p class="mx-auto max-w-2xl text-lg text-foreground/80">
 			Have a question, project idea, or just want to say hi? I'd love to hear from you!
 		</p>
 	</section>
@@ -153,9 +153,7 @@
 	<section>
 		<div class="grid gap-4 sm:grid-cols-3">
 			{#each contactReasons as reason}
-				<Card.Root
-					class="border-border/50 bg-card/50 text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/50"
-				>
+				<Card.Root class="border-border/50 bg-card/50 text-center backdrop-blur-sm transition-all">
 					<Card.Content>
 						<div
 							class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-chart-1/10"
@@ -320,14 +318,18 @@
 							</div>
 							<div>
 								<p class="font-medium">Quick Response</p>
-								<p class="text-sm text-muted-foreground">Usually within 24 hours</p>
+								<p class="text-sm text-foreground/80 dark:text-muted-foreground">
+									Usually within 24 hours
+								</p>
 							</div>
 						</div>
 						<div class="text-right">
 							<p class="font-mono text-lg font-semibold text-chart-1 tabular-nums">
 								{currentTime || '--:--:--'}
 							</p>
-							<p class="text-xs text-muted-foreground">{timezoneAbbr || 'WET/WEST'}</p>
+							<p class="text-xs text-foreground/80 dark:text-muted-foreground">
+								{timezoneAbbr || 'WET/WEST'}
+							</p>
 						</div>
 					</div>
 					<div class="flex items-center gap-3 border-t border-chart-1/20 pt-4">
@@ -336,7 +338,9 @@
 						</div>
 						<div>
 							<p class="font-medium">Lisbon, Portugal</p>
-							<p class="text-sm text-muted-foreground">Available to collaborate remotely</p>
+							<p class="text-sm text-foreground/80 dark:text-muted-foreground">
+								Available to collaborate remotely
+							</p>
 						</div>
 					</div>
 				</Card.Content>

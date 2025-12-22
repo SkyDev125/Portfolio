@@ -23,7 +23,7 @@
 <!-- Layout -->
 <div class="relative z-0 flex min-h-screen flex-col">
 	<!-- Navigation Menu -->
-	<header>
+	<header class="sticky top-0 z-50">
 		<Navbar />
 	</header>
 

@@ -183,7 +183,7 @@
 		>
 			My Projects
 		</h1>
-		<p class="mx-auto max-w-2xl text-lg text-muted-foreground">
+		<p class="mx-auto max-w-2xl text-lg text-foreground/80">
 			A live collection of my work, pulled straight from GitHub
 		</p>
 	</section>

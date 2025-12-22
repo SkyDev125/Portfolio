@@ -3,13 +3,14 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { resolve } from '$app/paths';
 	import '@fortawesome/fontawesome-free/css/all.min.css';
+	import ContactLink from '$lib/components/ui/contact-link/contact-link.svelte';
 
 	const heroData = {
 		greeting: "Heyoo! I'm",
 		name: 'Diogo Santos',
 		nickname: 'Sky',
 		title: 'CS Student & Research Assistant',
-		tagline: 'Trying my best to make this world slightly a better place ✨'
+		tagline: 'Trying my best to make this world a slightly better place.'
 	};
 
 	const featuredProjects = [
@@ -77,21 +78,6 @@
 <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
 	<!-- Hero Section -->
 	<section class="mb-20 flex min-h-[60vh] flex-col items-center justify-center text-center">
-		<!-- Status Badge -->
-		{#if currentStatus.available}
-			<div
-				class="mb-6 inline-flex items-center gap-2 rounded-full border border-green-400/50 bg-green-500/20 px-4 py-2 text-sm font-medium text-green-900 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-400"
-			>
-				<span class="relative flex h-2 w-2">
-					<span
-						class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"
-					></span>
-					<span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-				</span>
-				{currentStatus.statusText}
-			</div>
-		{/if}
-
 		<!-- Main Heading -->
 		<h1 class="mb-4 text-lg font-medium text-muted-foreground sm:text-xl">
 			{heroData.greeting}
@@ -109,7 +95,7 @@
 		</h3>
 
 		<!-- Tagline -->
-		<p class="mb-10 max-w-2xl text-xl text-muted-foreground sm:text-2xl">
+		<p class="mb-10 max-w-2xl text-xl text-foreground/80 sm:text-2xl">
 			{heroData.tagline}
 		</p>
 
@@ -126,7 +112,7 @@
 		</div>
 
 		<!-- Scroll indicator -->
-		<div class="mt-16 animate-bounce text-muted-foreground/50">
+		<div class="mt-16 animate-bounce text-foreground/50">
 			<i class="fa-solid fa-chevron-down text-2xl"></i>
 		</div>
 	</section>
@@ -135,7 +121,7 @@
 	<section class="mb-20">
 		<div class="mb-10 text-center">
 			<h2 class="mb-3 text-3xl font-bold sm:text-4xl">What I Do</h2>
-			<p class="mx-auto max-w-2xl text-muted-foreground">
+			<p class="mx-auto max-w-2xl text-foreground/80">
 				From web apps to mobile, from systems programming to AI and robotics, I love building things
 				that solve real problems
 			</p>
@@ -143,12 +129,10 @@
 
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 			{#each highlights as highlight}
-				<Card.Root
-					class="group border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
-				>
+				<Card.Root class="group border-border/50 bg-card/50 backdrop-blur-sm transition-all">
 					<Card.Header class="pb-3">
 						<div
-							class="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110"
+							class="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-chart-1 transition-transform duration-300 group-hover:scale-110"
 						>
 							<i class="fa-solid {highlight.icon} text-xl"></i>
 						</div>
@@ -166,7 +150,7 @@
 	<section class="mb-20">
 		<div class="mb-10 text-center">
 			<h2 class="mb-3 text-3xl font-bold sm:text-4xl">Featured Projects</h2>
-			<p class="mx-auto max-w-2xl text-muted-foreground">
+			<p class="mx-auto max-w-2xl text-foreground/80">
 				A selection from my 36+ repositories, ranging from university projects to personal passion
 				projects
 			</p>
@@ -175,7 +159,7 @@
 		<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{#each featuredProjects as project}
 				<Card.Root
-					class="group flex flex-col border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
+					class="group relative flex flex-col border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
 				>
 					<Card.Header>
 						<div class="mb-2 flex items-center gap-3">
@@ -198,12 +182,14 @@
 								</span>
 							{/each}
 						</div>
-						<Button href={project.link} variant="ghost" size="sm" class="group/btn gap-2 p-0">
+						<span class="inline-flex items-center gap-2 text-sm font-medium">
 							View Project
-							<i class="fa-solid fa-arrow-right transition-transform group-hover/btn:translate-x-1"
-							></i>
-						</Button>
+							<i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+						</span>
 					</Card.Content>
+					<a href={project.link} class="absolute inset-0" target="_blank" rel="noopener noreferrer">
+						<span class="sr-only">View {project.title}</span>
+					</a>
 				</Card.Root>
 			{/each}
 		</div>
@@ -266,31 +252,6 @@
 
 	<!-- Quick Links / CTA Section -->
 	<section class="mb-8">
-		<Card.Root class="border-border/50 bg-card/50 p-8 text-center backdrop-blur-sm md:p-12">
-			<h2 class="mb-4 text-3xl font-bold">Let's Build Something Together</h2>
-			<p class="mx-auto mb-8 max-w-xl text-muted-foreground">
-				Whether you want to discuss research, collaborate on a project, or just chat about robots,
-				AI and IT, I'd love to hear from you!
-			</p>
-			<div class="flex flex-wrap justify-center gap-4">
-				<Button href={resolve('/contact')} size="lg" class="gap-2">
-					<i class="fa-solid fa-envelope"></i>
-					Start a Conversation
-				</Button>
-				<Button href="https://github.com/SkyDev125" variant="outline" size="lg" class="gap-2">
-					<i class="fa-brands fa-github"></i>
-					View GitHub
-				</Button>
-				<Button
-					href="https://www.linkedin.com/in/diogo-sky/"
-					variant="outline"
-					size="lg"
-					class="gap-2"
-				>
-					<i class="fa-brands fa-linkedin"></i>
-					Connect on LinkedIn
-				</Button>
-			</div>
-		</Card.Root>
+		<ContactLink />
 	</section>
 </div>

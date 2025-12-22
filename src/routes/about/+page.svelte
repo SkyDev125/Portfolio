@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { resolve } from '$app/paths';
+	import ContactLink from '$lib/components/ui/contact-link/contact-link.svelte';
 	import '@fortawesome/fontawesome-free/css/all.min.css';
 
 	const timeline = [
@@ -109,7 +108,7 @@
 		>
 			About Me
 		</h1>
-		<p class="mx-auto max-w-2xl text-lg text-muted-foreground">
+		<p class="mx-auto max-w-2xl text-lg text-foreground/80">
 			From a vocational tech support student to a researcher debugging robots and AI
 		</p>
 	</section>
@@ -125,40 +124,42 @@
 			</Card.Header>
 			<Card.Content class="space-y-4 text-muted-foreground">
 				<p>
-					My journey in computer science has required immense <strong class="text-foreground"
+					My journey in computer science has required immense <strong class="dark:text-foreground"
 						>resilience and adaptability</strong
 					>. As the
-					<strong class="text-foreground">first in my family to pursue higher education</strong>,
-					I've transformed from maintaining servers and networks to developing autonomous systems
+					<strong class="dark:text-foreground">first in my family to pursue higher education</strong
+					>, I've transformed from maintaining servers and networks to developing autonomous systems
 					that can navigate disaster zones.
 				</p>
 				<p>
 					At Escola Profissional Val do Rio, I developed a deep understanding of computing's
 					physical layer, from hardware integration to robot development. I graduated with the <strong
-						class="text-foreground">highest average in the school</strong
+						class="dark:text-foreground">highest average in the school</strong
 					>
 					and perfect scores on my capstone project and Erasmus+ internship in Turin, where I overhauled
 					a legacy system to achieve a
-					<strong class="text-foreground">>90% performance boost</strong>.
+					<strong class="dark:text-foreground">>90% performance boost</strong>.
 				</p>
 				<p>
 					This made me realize my true passion: not just maintaining systems, but
-					<strong class="text-foreground">architecting new solutions from the ground up</strong>. So
-					while working as Lab Manager by day, I self-studied mathematics in the evenings to enroll
-					at
-					<strong class="text-foreground">Instituto Superior Técnico</strong>, Portugal's most
+					<strong class="dark:text-foreground">architecting new solutions from the ground up</strong
+					>. So while working as Lab Manager by day, I self-studied mathematics in the evenings to
+					enroll at
+					<strong class="dark:text-foreground">Instituto Superior Técnico</strong>, Portugal's most
 					prestigious engineering university.
 				</p>
 				<p>
-					At IST, I earned the <strong class="text-foreground">Diploma of Academic Merit</strong>
-					and ranked in the <strong class="text-foreground">top 1.8%</strong> of my cohort. My
+					At IST, I earned the <strong class="dark:text-foreground"
+						>Diploma of Academic Merit</strong
+					>
+					and ranked in the <strong class="dark:text-foreground">top 1.8%</strong> of my cohort. My
 					greatest passion emerged in AI coursework, which led me to join
-					<strong class="text-foreground">GAIPS (INESC-ID)</strong> as a Research Assistant, where I
-					now work on Social Robotics for the Horizon Europe CARMA project.
+					<strong class="dark:text-foreground">GAIPS (INESC-ID)</strong> as a Research Assistant, where
+					I now work on Social Robotics for the Horizon Europe CARMA project.
 				</p>
 				<p>
 					My practical background has given me a distinct perspective: a pure desire to dig deeper
-					and transform lines of code into <strong class="text-foreground"
+					and transform lines of code into <strong class="dark:text-foreground"
 						>truly autonomous and intelligent systems</strong
 					>.
 				</p>
@@ -194,7 +195,7 @@
 						<!-- Content -->
 						<div class="ml-12 md:ml-0 md:w-1/2 {i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}">
 							<Card.Root
-								class="border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 {item.highlight
+								class="border-border/50 bg-card/50 backdrop-blur-sm transition-all {item.highlight
 									? 'ring-1 ring-chart-1/20'
 									: ''}"
 							>
@@ -313,10 +314,10 @@
 		<div class="flex flex-wrap justify-center gap-4">
 			{#each hobbies as hobby}
 				<div
-					class="flex items-center gap-2 rounded-full border border-border/50 bg-card/50 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-primary/50"
+					class="flex items-center gap-2 rounded-full border border-border/50 bg-card/50 px-4 py-2 backdrop-blur-sm transition-all"
 				>
 					<i class="fa-solid {hobby.icon} text-chart-1"></i>
-					<span class="text-sm font-medium">{hobby.name}</span>
+					<span class="text-sm font-medium text-muted-foreground">{hobby.name}</span>
 				</div>
 			{/each}
 		</div>
@@ -324,31 +325,6 @@
 
 	<!-- Get In Contact Section -->
 	<section class="mb-8">
-		<Card.Root class="border-border/50 bg-card/50 p-8 text-center backdrop-blur-sm md:p-12">
-			<h2 class="mb-4 text-3xl font-bold">Let's Build Something Together</h2>
-			<p class="mx-auto mb-8 max-w-xl text-muted-foreground">
-				Whether you want to discuss research, collaborate on a project, or just chat about robots,
-				AI and IT, I'd love to hear from you!
-			</p>
-			<div class="flex flex-wrap justify-center gap-4">
-				<Button href={resolve('/contact')} size="lg" class="gap-2">
-					<i class="fa-solid fa-envelope"></i>
-					Start a Conversation
-				</Button>
-				<Button href="https://github.com/SkyDev125" variant="outline" size="lg" class="gap-2">
-					<i class="fa-brands fa-github"></i>
-					View GitHub
-				</Button>
-				<Button
-					href="https://www.linkedin.com/in/diogo-sky/"
-					variant="outline"
-					size="lg"
-					class="gap-2"
-				>
-					<i class="fa-brands fa-linkedin"></i>
-					Connect on LinkedIn
-				</Button>
-			</div>
-		</Card.Root>
+		<ContactLink />
 	</section>
 </div>
