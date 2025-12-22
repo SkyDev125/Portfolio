@@ -25,6 +25,8 @@
 			initSkyMode();
 			applyTheme(mode, $skyColors.isDark, $skyColors.solidColor);
 		} else {
+			// Clean up sky mode's custom --background variable
+			applyTheme(mode);
 			// Use mode-watcher for light/dark/system
 			if (mode === 'light') {
 				setMode('light');
