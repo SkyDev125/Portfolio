@@ -17,8 +17,8 @@
 <!-- Animated Background -->
 <StarfieldBackground />
 
-<!-- Mode Watcher to handle theme changes -->
-<ModeWatcher />
+<!-- Mode Watcher to handle theme changes (default to dark on first visit) -->
+<ModeWatcher defaultMode="dark" />
 
 <!-- Layout -->
 <div class="relative z-0 flex min-h-screen flex-col">
