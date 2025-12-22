@@ -95,7 +95,7 @@
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onclick={() => setTheme('sky')}>
 				<SunriseIcon class="mr-2 h-4 w-4" />
-				Sky
+				Time-Based
 			</DropdownMenu.Item>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
