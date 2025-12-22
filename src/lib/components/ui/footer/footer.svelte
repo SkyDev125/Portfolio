@@ -3,7 +3,7 @@
 </script>
 
 <footer
-	class="flex w-full items-center justify-between border-t border-border bg-background px-6 py-4 text-sm"
+	class="flex w-full items-center justify-between border-t border-white/20 bg-white/60 px-6 py-4 text-sm backdrop-blur-[2px] dark:border-black/30 dark:bg-black/40"
 >
 	<div class="text-muted-foreground">©2025 SkyDev125. ALL RIGHTS RESERVED.</div>
 	<div class="flex items-center space-x-5">

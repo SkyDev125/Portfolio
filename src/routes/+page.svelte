@@ -79,7 +79,7 @@
 	<!-- Hero Section -->
 	<section class="mb-20 flex min-h-[60vh] flex-col items-center justify-center text-center">
 		<!-- Main Heading -->
-		<h1 class="mb-4 text-lg font-medium text-muted-foreground sm:text-xl">
+		<h1 class="mb-4 text-lg font-medium text-foreground/80 sm:text-xl">
 			{heroData.greeting}
 		</h1>
 		<h2
@@ -87,7 +87,7 @@
 		>
 			{heroData.name}
 		</h2>
-		<p class="mb-4 text-xl text-muted-foreground sm:text-2xl">
+		<p class="mb-4 text-xl text-foreground/80 sm:text-2xl">
 			aka <span class="font-semibold text-chart-1">{heroData.nickname}</span>
 		</p>
 		<h3 class="mb-6 text-2xl font-semibold text-foreground/80 sm:text-3xl md:text-4xl">

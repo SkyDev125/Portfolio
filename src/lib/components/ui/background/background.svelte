@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { themeMode, skyColors } from '$lib/stores/sky-theme';
 
 	// Default options
 	const options = {
@@ -293,12 +294,29 @@
 			if (animationIdleTimeout) clearTimeout(animationIdleTimeout);
 		};
 	});
+
+	// Reactive sky gradient
+	let isSkyMode = $derived($themeMode === 'sky');
+	let skyBackground = $derived($skyColors.background);
 </script>
 
+{#if isSkyMode}
+	<div class="sky-gradient" style="background: {skyBackground};"></div>
+{/if}
 <canvas bind:this={canvasBackground} id="backgroundCanvas"></canvas>
 <canvas bind:this={canvasStars} id="starsCanvas"></canvas>
 
 <style>
+	.sky-gradient {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -11;
+		transition: background 2s ease-in-out;
+	}
+
 	#backgroundCanvas,
 	#starsCanvas {
 		position: fixed;

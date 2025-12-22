@@ -3,10 +3,38 @@
 	import { navigationMenuTriggerStyle } from '$lib/components/ui/navigation-menu/navigation-menu-trigger.svelte';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import MoonIcon from '@lucide/svelte/icons/moon';
+	import SunriseIcon from '@lucide/svelte/icons/sunrise';
 	import { resetMode, setMode } from 'mode-watcher';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { resolve } from '$app/paths';
+	import {
+		themeMode,
+		saveThemeMode,
+		applyTheme,
+		initSkyMode,
+		skyColors,
+		type ThemeMode
+	} from '$lib/stores/sky-theme';
+
+	function setTheme(mode: ThemeMode) {
+		themeMode.set(mode);
+		saveThemeMode(mode);
+
+		if (mode === 'sky') {
+			initSkyMode();
+			applyTheme(mode, $skyColors.isDark, $skyColors.solidColor);
+		} else {
+			// Use mode-watcher for light/dark/system
+			if (mode === 'light') {
+				setMode('light');
+			} else if (mode === 'dark') {
+				setMode('dark');
+			} else if (mode === 'system') {
+				resetMode();
+			}
+		}
+	}
 </script>
 
 <nav
@@ -46,18 +74,27 @@
 	</NavigationMenu.Root>
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger class={buttonVariants({ variant: 'outline', size: 'icon' })}>
-			<SunIcon
-				class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! duration-200 dark:scale-0 dark:-rotate-90"
-			/>
-			<MoonIcon
-				class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all! duration-200 dark:scale-100 dark:rotate-0"
-			/>
+			{#if $themeMode === 'sky'}
+				<SunriseIcon class="h-[1.2rem] w-[1.2rem] transition-all! duration-200" />
+			{:else}
+				<SunIcon
+					class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! duration-200 dark:scale-0 dark:-rotate-90"
+				/>
+				<MoonIcon
+					class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all! duration-200 dark:scale-100 dark:rotate-0"
+				/>
+			{/if}
 			<span class="sr-only">Toggle theme</span>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content align="end">
-			<DropdownMenu.Item onclick={() => setMode('light')}>Light</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={() => setMode('dark')}>Dark</DropdownMenu.Item>
-			<DropdownMenu.Item onclick={() => resetMode()}>System</DropdownMenu.Item>
+			<DropdownMenu.Item onclick={() => setTheme('light')}>Light</DropdownMenu.Item>
+			<DropdownMenu.Item onclick={() => setTheme('dark')}>Dark</DropdownMenu.Item>
+			<DropdownMenu.Item onclick={() => setTheme('system')}>System</DropdownMenu.Item>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item onclick={() => setTheme('sky')}>
+				<SunriseIcon class="mr-2 h-4 w-4" />
+				Sky
+			</DropdownMenu.Item>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 </nav>
