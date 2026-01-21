@@ -22,7 +22,7 @@
 	};
 
 	const GITHUB_USERNAME = 'SkyDev125';
-	const featuredNames = ['Portfolio'];
+	const featuredNames = ['Portfolio', 'UnitSense', 'Voice_at_Night'];
 	const hiddenNames = ['SkyDev125'];
 
 	let repos: Repo[] = $state([]);
